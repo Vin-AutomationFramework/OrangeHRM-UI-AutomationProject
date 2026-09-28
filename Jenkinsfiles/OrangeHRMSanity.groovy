@@ -17,6 +17,16 @@ properties([
 node {
     // Resolve Maven from Jenkins Global Tools
     def mvnHome = tool 'Maven-3.9.6'
+    
+    // 1. Customize the Build Display Name (shown instead of just #11)
+    currentBuild.displayName = "#${env.BUILD_NUMBER} [${params.ENV}] [${params.browsers}]"
+
+    // 2. Customize the Build Description (shown directly below the build number)
+    currentBuild.description = """
+        <b>Branch:</b> ${params.Branch}<br/>
+        <b>Suite:</b> ${params.suiteXmlFile}<br/>
+        <b>Headless:</b> ${params.headless}
+    """
 
     stage('Clean Workspace') {
         if (params.clearWorkspace) {
