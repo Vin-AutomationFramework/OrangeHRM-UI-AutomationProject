@@ -15,6 +15,8 @@ properties([
 ])
 
 node {
+    // Resolve Maven from Jenkins Global Tools
+    def mvnHome = tool 'Maven-3.9.6'
 
     stage('Clean Workspace') {
         if (params.clearWorkspace) {
@@ -29,16 +31,19 @@ node {
     stage('Build and Run Tests') {
         int retStatus = 0
         try {
-            retStatus = sh(
-                script: """
-                    mvn clean test \
-                    -DsuiteXmlFile="${params.suiteXmlFile}" \
-                    -Dbrowser="${params.browsers}" \
-                    -Dheadless="${params.headless}" \
-                    -Denvironment="${params.ENV}"
-                """,
-                returnStatus: true
-            )
+            // Adds Maven and Java to the current PATH
+            withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
+                retStatus = sh(
+                    script: """
+                        mvn clean test \
+                        -DsuiteXmlFile="${params.suiteXmlFile}" \
+                        -Dbrowser="${params.browsers}" \
+                        -Dheadless="${params.headless}" \
+                        -Denvironment="${params.ENV}"
+                    """,
+                    returnStatus: true
+                )
+            }
         } catch (Exception exp) {
             println "Exception occurred during test execution: ${exp.getMessage()}"
             currentBuild.result = 'UNSTABLE'
