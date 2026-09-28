@@ -5,7 +5,7 @@ properties([
         choice(name: 'browsers', choices: ['chrome', 'firefox', 'edge'], description: 'Target browser for test execution'),
         choice(name: 'suiteXmlFile', 
                choices: [
-                   'testsuites/ApprovalFlowsSuite.xml',
+                 
                    'testng.xml'
                ], 
                description: 'Select TestNG suite XML to execute'),
