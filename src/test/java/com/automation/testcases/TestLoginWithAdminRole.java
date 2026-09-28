@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import com.automation.actions.LoginPageActions;
+import com.automation.assertions.HomePageAssertions;
 import com.automation.assertions.LoginPageAssertions;
 import com.automation.utils.CommonUtils;
 import com.automation.utils.ExcelReader;
@@ -45,7 +46,8 @@ public class TestLoginWithAdminRole extends BaseTest{
         CommonUtils.setAllureReportTestCaseName(excelDataMap.get("testCaseName"));
 
         LoginPageActions loginActions = new LoginPageActions();
-        LoginPageAssertions loginAssertions = new LoginPageAssertions();
+        HomePageAssertions homePageAssertions = new HomePageAssertions();
+        
         SoftAssert softAssert = new SoftAssert();
 
         String testCaseType = excelDataMap.get("testCaseType");
@@ -56,6 +58,7 @@ public class TestLoginWithAdminRole extends BaseTest{
 
         // Action execution
         loginActions.login(username, password);
+        homePageAssertions.verifyDashboardTabOnHomePageAfterSuccesfullLogIn("Dashboard");
 
         
 
