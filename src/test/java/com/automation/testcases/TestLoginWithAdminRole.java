@@ -3,7 +3,6 @@ package com.automation.testcases;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -47,19 +46,23 @@ public class TestLoginWithAdminRole extends BaseTest{
 
         LoginPageActions loginActions = new LoginPageActions();
         HomePageAssertions homePageAssertions = new HomePageAssertions();
-        
+        LoginPageAssertions loginPageAssertions = new LoginPageAssertions();
         SoftAssert softAssert = new SoftAssert();
 
         String testCaseType = excelDataMap.get("testCaseType");
         String username = excelDataMap.get("userName");
         String password = excelDataMap.get("password");
-       // String expectedHeader = excelDataMap.get("expectedHeader");
-      //  String expectedError = excelDataMap.get("expectedErrorMessage");
+        String expectedHeader = excelDataMap.get("tabText");
+        String expectedError = excelDataMap.get("errorMsg");
 
         // Action execution
         loginActions.login(username, password);
-        homePageAssertions.verifyDashboardTabOnHomePageAfterSuccesfullLogIn("Dashboard");
-
+        if(testCaseType.equalsIgnoreCase("Positive")) 
+        {
+        homePageAssertions.verifyDashboardTabOnHomePageAfterSuccesfullLogIn(expectedHeader);
+        }else {
+        	loginPageAssertions.verifyErrorMessageForInvalidUserName(expectedError);
+        }
         
 
         softAssert.assertAll();

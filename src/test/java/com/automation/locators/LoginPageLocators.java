@@ -11,6 +11,7 @@ public class LoginPageLocators {
 	public static final By USERNAME_FIELD = By.name("username");
 	public static final By PASSWORD_FIELD = By.name("password");
 	public static final By LOGIN_BUTTON = By.xpath("//button[text()=' Login ']");
+	public static final By INVALIDERROR_MSG = By.xpath("//p[text()='Invalid credentials']");
 	
 
 }

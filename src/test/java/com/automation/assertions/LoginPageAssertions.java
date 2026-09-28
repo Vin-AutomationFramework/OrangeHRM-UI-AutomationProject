@@ -2,8 +2,10 @@ package com.automation.assertions;
 
 import org.testng.Assert;
 
+import com.automation.factory.BrowserFactory;
 import com.automation.factory.PageFactory;
-import com.automation.locators.HomePageLocators;
+import com.automation.locators.LoginPageLocators;
+import com.automation.utils.CommonUtils;
 
 import io.qameta.allure.Step;
 
@@ -15,10 +17,13 @@ public class LoginPageAssertions {
 		this.pFactory = new PageFactory();
 	}
 	
-	@Step("VerifyHeadingTextAfterSuccessfullLOgIN")
-	public void verifyHeadingTextAfterSuccessfullLOgIN(String expectedText) {
-		String actualHeading = this.pFactory.getText(HomePageLocators.DASHBOARD_TAB);
-		Assert.assertEquals(actualHeading, expectedText, "Heading text mismatch!");
+	@Step("VerifyErrorMessageForInvalidUserName")
+	public void verifyErrorMessageForInvalidUserName(String expectedErrorMsg) {
+		String actualErrorMesg = this.pFactory.getText(LoginPageLocators.INVALIDERROR_MSG);
+		CommonUtils.captureScreenshotToAllure(BrowserFactory.getDriver(), 
+	            "Error Message Verification Screenshot");
+		Assert.assertEquals(actualErrorMesg, expectedErrorMsg, "Invalid Credential Error Message Shown as expected");
+		
 	}
 
 }
