@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Regression Flow Test Suite" configfailurepolicy="continue" parallel="tests" thread-count="2">
+
+    <!-- ================= 01. Login & Approval Flow ================= -->
+    <test name="01. User Login and Access Flow" parallel="methods" thread-count="2">
+        <parameter name="excelFilePath" 
+        value="src/test/resources/testdata/LoginTest.xlsx" />
+        <parameter name="sheetName" value="Sheet1" />
+        <classes>
+            <class name="com.automation.testcases.TestLoginWithAdminRole" />
+        </classes>
+    </test>
+
+</suite>

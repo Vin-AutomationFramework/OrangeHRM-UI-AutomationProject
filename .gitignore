@@ -1,0 +1,15 @@
+target/
+build/
+bin/
+*.class
+test-output/
+allure-results/
+allure-report/
+*.log
+.settings/
+.project
+.classpath
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
